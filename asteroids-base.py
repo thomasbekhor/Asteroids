@@ -3,6 +3,7 @@
 # Importando as bibliotecas necessárias.
 import pygame
 from os import path
+import random
 
 # Estabelece a pasta que contem as figuras.
 img_dir = path.join(path.dirname(__file__), 'img')
@@ -39,7 +40,29 @@ class Player(pygame.sprite.Sprite):
         if self.rect.left<0:
             self.rect.left=0
             
-        
+class Mob(pygame.sprite.Sprite):
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        mob_img=pygame.image.load(path.join(img_dir, "meteorBrown_med1.png")).convert()
+        self.image = pygame.transform.scale(mob_img, (50, 38))
+        self.image.set_colorkey(BLACK)
+        self.rect = self.image.get_rect()
+        self.rect.x= random.randrange(0,WIDTH)
+        self.rect.y=random.randrange(-100,-40)
+        self.speedx=random.randrange(-3,3)
+        self.speedy=random.randrange(2,9)
+              
+
+Mob1=Mob()
+Mob2=Mob()
+Mob3=Mob()
+Mob4=Mob()
+Mob5=Mob()
+Mob6=Mob()
+Mob7=Mob()
+Mob8=Mob()
+
+
 # Inicialização do Pygame.
 pygame.init()
 pygame.mixer.init()
@@ -60,8 +83,17 @@ background_rect = background.get_rect()
 player=Player()
 
 all_sprites=pygame.sprite.Group()
-all_sprites.add(player)
+mobs=pygame.sprite.Group()
 
+all_sprites.add(player)
+all_sprites.add(Mob1)
+all_sprites.add(Mob2)
+all_sprites.add(Mob3)
+all_sprites.add(Mob4)
+all_sprites.add(Mob5)
+all_sprites.add(Mob6)
+all_sprites.add(Mob7)
+all_sprites.add(Mob8)
 # Comando para evitar travamentos.
 try:
     
@@ -99,6 +131,8 @@ try:
         # Depois de desenhar tudo, inverte o display.
         pygame.display.flip()
         
+     
+    
 finally:
     pygame.quit()
 
