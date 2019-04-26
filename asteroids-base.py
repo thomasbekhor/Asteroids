@@ -32,6 +32,13 @@ class Player(pygame.sprite.Sprite):
         self.rect.centerx=WIDTH/2
         self.rect.bottom=HEIGHT- 10
         self.speedx=0
+    def update(self):
+        self.rect.x += self.speedx
+        if self.rect.right>WIDTH:
+            self.rect.right=WIDTH
+        if self.rect.left<0:
+            self.rect.left=0
+            
         
 # Inicialização do Pygame.
 pygame.init()
@@ -71,7 +78,19 @@ try:
             # Verifica se foi fechado
             if event.type == pygame.QUIT:
                 running = False
-            if event.type ==pygame.KEYDOWN:
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_LEFT:
+                    player.speedx = -8
+                if event.key == pygame.K_RIGHT:
+                    player.speedx = 8
+            
+            if event.type == pygame.KEYUP:
+                if event.key == pygame.K_LEFT:
+                    player.speedx=0
+                if event.key == pygame.K_RIGHT:
+                    player.speedx=0
+        all_sprites.update()
+                    
     
         # A cada loop, redesenha o fundo e os sprites
         screen.fill(BLACK)
@@ -82,3 +101,4 @@ try:
         
 finally:
     pygame.quit()
+
